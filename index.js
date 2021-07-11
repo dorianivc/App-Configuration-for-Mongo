@@ -7,10 +7,11 @@ const app = express()
 const port =  process.env.PORT || 3000
 
 const client = new appConfig.AppConfigurationClient(process.env.AppConfigurationConnectionString);
-let connectionString=  client.getConfigurationSetting({ key: "mongo-endpoint", label: "cloud" });
+let connectionString=  client.getConfigurationSetting({ key: "mongo-endpoint", label: "local" });
 let mongoUrl;
 
 app.get('/', (req, res) => {
+  connectionString=  client.getConfigurationSetting({ key: "mongo-endpoint", label: "cloud" });
   connectionString.then(body=>{ mongoUrl=body});
   setTimeout(() => { /*console.log("connection string " + mongoUrl.value);*/ console.log('Secreto Obtenido') }, 300);
   MongoClient.connect(mongoUrl.value, { useNewUrlParser: true }, (err, db) => {
@@ -24,3 +25,4 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`))
+
