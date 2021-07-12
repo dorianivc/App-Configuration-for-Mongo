@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     if (err) {
       res.status(500).send('💥 Error con la conexion a la base de datos. ¿Es el App Config Secret correcto? 💥: ' + err);
     } else {
-      res.send('Me conecté a la DB mongo de Dorian usando el Label: ' + process.env.LABEL + '  del App Configuration ! 😎');
+      res.send('Me conecté a la DB mongo de Dorian usando el Label: "' + process.env.LABEL + '"  del App Configuration ! 😎');
       db.close();
     }
   });
